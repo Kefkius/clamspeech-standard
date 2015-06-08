@@ -14,7 +14,7 @@ Below, "VarInt" refers to a [variable length integer](https://en.bitcoin.it/wiki
 
 The serialized format of ClamSpeeches that are to be recorded in the blockchain follows:
 
-* 1 byte: Format version.
+* 2 bytes: Format version.
 * VarInt: Application identifier length.
 * (Variable): Application identifier.
 * VarInt: Payload (state of the application) length.
@@ -31,7 +31,7 @@ the proposed changes in the "Changes to Clam Client" section.
 The Clam Client needs to change its rules regarding the validity of clamspeeches. Currently, ClamSpeeches 
 above 140 bytes in length are nonstandard, but not invalid. The proposed change would be that:
 
-* "Normal" ClamSpeeches (those that do not record state) should have the version byte `0` prepended to them.
+* "Normal" ClamSpeeches (those that do not record state) should have the version bytes `00` prepended to them.
 * ClamSpeeches at or below a certain length threshold remain free.
 * ClamSpeeches above the threshold result in a per-byte fee for all bytes after the threshold is reached.
 * ClamSpeeches above a certain maximum length are invalid, regardless of fees.
