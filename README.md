@@ -32,12 +32,15 @@ The Clam Client needs to change its rules regarding the validity of clamspeeches
 above 140 bytes in length are nonstandard, but not invalid. The proposed change would be that:
 
 * "Normal" ClamSpeeches (those that do not record state) should have the version bytes `00` prepended to them.
-* ClamSpeeches at or below a certain length threshold remain free.
+* ClamSpeeches at or below a certain length threshold remain free (i.e. only subject to normal transaction fees).
 * ClamSpeeches above the threshold result in a per-byte fee for all bytes after the threshold is reached.
 * ClamSpeeches above a certain maximum length are invalid, regardless of fees.
 
 These changes allow ClamSpeeches to occupy as much space as they need, so long as the transaction sender 
-is willing to prove that it's necessary by paying a fee.
+is willing to prove that it's necessary by paying a fee. The extra fee on ClamSpeeches exists because
+"normal" transaction contents (i.e. inputs/outputs) have a higher priority than ClamSpeech data.
+Large ClamSpeeches must therefore pay a higher fee-per-byte than inputs/outputs in order to justify
+the amount of space they occupy.
 
 ### Parameters
 
