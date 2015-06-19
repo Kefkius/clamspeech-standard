@@ -23,8 +23,7 @@ The serialized format of ClamSpeeches that are to be recorded in the blockchain 
 ## Rationale
 
 Variable length integers are used in application identifiers because we make no assumptions about the 
-amount of identifiers that will be needed. It's also intuitive to use them in payloads, especially given 
-the proposed changes in the "Changes to Clam Client" section.
+amount of identifiers that will be needed. It's also intuitive to use them in payloads.
 
 ## Changes to Clam Client
 
@@ -32,22 +31,4 @@ The Clam Client needs to change its rules regarding the validity of clamspeeches
 above 140 bytes in length are nonstandard, but not invalid. The proposed change would be that:
 
 * "Normal" ClamSpeeches (those that do not record state) should have the version bytes `00` prepended to them.
-* ClamSpeeches at or below a certain length threshold remain free (i.e. only subject to normal transaction fees).
-* ClamSpeeches above the threshold result in a per-byte fee for all bytes after the threshold is reached.
-* ClamSpeeches above a certain maximum length are invalid, regardless of fees.
 
-These changes allow ClamSpeeches to occupy as much space as they need, so long as the transaction sender 
-is willing to prove that it's necessary by paying a fee. The extra fee on ClamSpeeches exists because
-"normal" transaction contents (i.e. inputs/outputs) have a higher priority than ClamSpeech data.
-Large ClamSpeeches must therefore pay a higher fee-per-byte than inputs/outputs in order to justify
-the amount of space they occupy.
-
-### Parameters
-
-The threshold for when a fee begins applying, the maximum length regardless of fee, and the fee itself 
-have yet to be determined. The behavior of the fee, whether constant for each byte or varying with total 
-ClamSpeech length, also needs to be determined.
-
-Given that the size of ClamSpeeches will affect every Clam node, it's necessary to construct reasonable 
-restrictions on ClamSpeech length and deterrents for long ClamSpeeches via the above parameters. Input by 
-community members is needed.
